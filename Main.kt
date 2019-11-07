@@ -20,5 +20,5 @@ fun main(args: Array<String>) {
 data class Price( val id: Int, val price: Double, val timestamp:Long)
 
 fun getLatestPrice(priceList:List<Price>):List<Price?>{
-    return priceList.groupBy{it.id}.map{it.value}.map{it.maxBy{x->x.timestamp}}
+    return priceList.groupBy{it.id}.values.map{it.maxBy{it.timestamp}}
 }
