@@ -71,4 +71,22 @@ public class GetLatestPrices{
                 .collect(Collectors.toList());
         return latestPrices;
     }
+        
+    private static List<Price> getLatestPrice2(List<Price> prices) {
+        Comparator<Price> byIdThenTimestamp = Comparator
+                .comparing(Price::getId).
+                        thenComparing(Price::getTimestamp, (s1, s2) -> {
+                            return s2.compareTo(s1);
+                        });
+        prices.sort(byIdThenTimestamp);
+        List<Price> output = new ArrayList<Price>();
+        int currentId = -1;
+        for(Price price : prices){
+            if (currentId != price.getId()) {
+                output.add(price);
+                currentId = price.getId();
+            }
+        }
+        return output;
+    }
 }
